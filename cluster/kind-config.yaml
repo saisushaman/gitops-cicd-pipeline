@@ -1,0 +1,11 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: gitops-demo
+nodes:
+  - role: control-plane
+    # Expose a NodePort range so the demo service can be reached from the host
+    # without a separate port-forward, if desired.
+    extraPortMappings:
+      - containerPort: 30080
+        hostPort: 30080
+        protocol: TCP

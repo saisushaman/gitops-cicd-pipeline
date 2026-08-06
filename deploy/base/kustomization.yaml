@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Deploy into the "demo" namespace (created by the Argo CD Application).
+namespace: demo
+
+resources:
+  - deployment.yaml
+  - service.yaml
+
+# CI updates the tag below on every push to main via:
+#   kustomize edit set image ghcr.io/saisushaman/gitops-cicd-pipeline=...:<sha>
+# Argo CD then reconciles the cluster to match this file (GitOps).
+images:
+  - name: ghcr.io/saisushaman/gitops-cicd-pipeline
+    newTag: latest
