@@ -23,6 +23,9 @@ spec:
         - name: app
           # Image + tag are managed by CI via `kustomize edit set image`.
           image: ghcr.io/saisushaman/gitops-cicd-pipeline:latest
+          # CI publishes immutable :<sha> tags, so IfNotPresent is correct and
+          # also lets a locally-built image (kind load) be used without a registry.
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           readinessProbe:
